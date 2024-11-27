@@ -1,4 +1,4 @@
-import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from "@dnd-kit/core";
+import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import { useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -14,6 +14,10 @@ function Kanban_board(){
     //activesection
     const [activeColumn,setActiveColumn]= useState<Section | null>(null);
 
+    const sensors= useSensors(useSensor(PointerSensor,{activationConstraint:{
+        distance:5,
+    },
+    }))
 
 function addSection(){
 const AddSection: Section={
@@ -68,7 +72,7 @@ function OnDragEnd(event:DragEndEvent){
 }
 
 return (
-    <DndContext onDragStart={OnDragStart} onDragEnd={OnDragEnd}>
+    <DndContext sensors={sensors} onDragStart={OnDragStart} onDragEnd={OnDragEnd}>
             <div className=' w-auto h-[100vh] p-5'>
     <h1 className='text-4xl font-serif text-center'>Kanban Board</h1>
 
