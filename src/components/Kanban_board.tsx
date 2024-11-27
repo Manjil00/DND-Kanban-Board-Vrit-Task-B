@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Section } from '../types';
+import { ID, Section } from '../types';
 import Plus from './icons/plus';
 import SectionContainer from './SectionContainer';
 
@@ -20,14 +20,20 @@ function generateId(){
     return Math.floor(Math.random() * 100001);
 };
 
+
+function deleteSection(id: ID){
+    const filterSection = section.filter(sec =>sec.id !== id);
+    setSection(filterSection);
+}
+
 return (
-    <div className='bg-green-900 w-full h-[100vh] p-5'>
+    <div className=' w-auto h-[100vh] p-5'>
     <h1 className='text-4xl font-serif text-center'>Kanban Board</h1>
 
 <div className="Section flex justify-evenly items-center gap-3">
 
 <div className='flex justify-evenly items-center gap-4 p-3'>
-    {section.map(sec => <div className='text-white bg-red-600'><SectionContainer section={sec}/></div>)}
+    {section.map(sec => <div><SectionContainer key={sec.id} section={sec} deleteSection={deleteSection}/></div>)}
 </div>
 
 
