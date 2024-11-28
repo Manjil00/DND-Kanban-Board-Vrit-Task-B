@@ -1,10 +1,11 @@
-import { useSortable } from "@dnd-kit/sortable";
+import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { ID, Section, Task, } from "../types";
 import DeleteIcon from "./icons/DeleteIcon";
 import Plus from "./icons/Plus";
 import TaskCard from "./TaskCard";
+
 
 interface Props{
     section:Section;
@@ -22,6 +23,9 @@ function SectionContainer(props:Props) {
 const {section, deleteSection, updateSection, createTask, tasks,deleteTask,  updateTask} =props;
 const [edit,setEdit]=useState(false);
 
+const tasksIds= useMemo(()=>{
+    return tasks.map((task)=>task.id);
+},[tasks]);
 
 const {setNodeRef, attributes, listeners, transform, transition,isDragging}
     =useSortable({
@@ -72,9 +76,11 @@ const {setNodeRef, attributes, listeners, transform, transition,isDragging}
         </div>
 
         <div className="content flex flex-grow flex-col gap-4 p-2 overflow-x-hidden overflow-y-auto text-white">
+        <SortableContext items={tasksIds}>
             {tasks.map((task)=>(
             <TaskCard key={task.id} task={task} deleteTask={deleteTask} updateTask={updateTask}/>
             ))}
+        </SortableContext>
         </div>
 
         <div className="footer w-full  h-[50px] rounded-xl rounded-t-none bg-slate-400 hover:bg-black hover:text-red-500">

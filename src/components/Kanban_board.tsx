@@ -3,8 +3,9 @@ import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import { useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { ID, Section, Task } from '../types';
-import SectionContainer from './SectionContainer';
 import Plus from "./icons/Plus";
+import SectionContainer from './SectionContainer';
+import TaskCard from "./TaskCard";
 
 function Kanban_board(){
 
@@ -12,7 +13,9 @@ function Kanban_board(){
     const sectionId= useMemo(() => section.map((sec)=>sec.id),[section]);
     //activesection
     const [activeColumn,setActiveColumn]= useState<Section | null>(null);
-
+    //active task
+    const[activeTask,setActiveTask]=useState<Task | null> (null);
+    
     const sensors= useSensors(useSensor(PointerSensor,{activationConstraint:{
         distance:5,
     },
@@ -29,17 +32,13 @@ const AddSection: Section={
 };
 setSection([...section, AddSection]);
 };
-
 function generateId(){
     return Math.floor(Math.random() * 100001);
 };
-
-
 function deleteSection(id: ID){
     const filterSections = section.filter((sec) =>sec.id !== id);
     setSection(filterSections);
 }
-
 function updateSection(id:ID,title:string){
     const updatedSection=section.map(sec=>{
         if(sec.id !== id) return sec;
@@ -50,15 +49,24 @@ function updateSection(id:ID,title:string){
 
 //DraggStart
 function OnDragStart(event: DragStartEvent){
-    console.log("dragstart",event);
+
     if(event.active.data.current?.type ==="Section"){
         setActiveColumn(event.active.data.current.section);
+        return;
+    }
+
+
+    if(event.active.data.current?.type ==="Task"){
+        setActiveTask(event.active.data.current.task);
         return;
     }
 }
 
 //end
 function OnDragEnd(event:DragEndEvent){
+    setActiveColumn(null);
+    setActiveTask(null);
+
     const {active,over}=event;
     if(!over)
         return;
@@ -80,6 +88,31 @@ function OnDragEnd(event:DragEndEvent){
 
         return arrayMove(section,activeSectionIndex,overSectionIndex);
     })
+}
+
+function OnDragOver(event: DragOverEvent){
+    const {active,over}=event;
+    if(!over) return;
+
+    const activeId=active.id;
+    const overId=over.id;
+    if (activeId===overId)  return;
+
+    const isActiveATask = active.data.current?.type ==="Task";
+    const isOverATask = over.data.current?.type ==="Task";
+    
+
+     //Drpooing between tasks
+    if(isActiveATask && isOverATask){
+        setTasks((tasks)=>{
+            const activeIndex= tasks.findIndex((t)=>t.id === activeId);
+            const overIndex= tasks.findIndex((t)=>t.id === overId);
+
+            return arrayMove(tasks, activeIndex,overIndex);
+        });
+}
+    //droping in other secction
+
 }
 
 //Task
@@ -108,7 +141,10 @@ function updateTask(id:ID, content: string){
 
 return (
     <div className="main overflow-x-auto overflow-y-hidden whitespace-nowrap min-h-screen">
-            <DndContext sensors={sensors} onDragStart={OnDragStart} onDragEnd={OnDragEnd}>
+            <DndContext sensors={sensors}
+            onDragStart={OnDragStart}
+            onDragEnd={OnDragEnd}
+            onDragOver={OnDragOver}>
             <div className=' w-screen h-[100vh] p-2 ' >
     <h1 className='text-4xl font-serif text-center'>Kanban Board</h1>
 
@@ -149,9 +185,14 @@ return (
     createTask={createTask}
     deleteTask={deleteTask}
     updateTask={updateTask}
-    tasks={[]}
-    
-    ></SectionContainer>}
+    tasks={tasks.filter((task)=>task.sectionId === activeColumn.id)}
+    />}
+
+{activeTask &&
+    <TaskCard task={activeTask}
+    deleteTask={deleteTask}
+    updateTask={updateTask}
+    />}
     </DragOverlay>,document.body
 )};
 
