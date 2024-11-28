@@ -16,9 +16,11 @@ Everything is basic as UI but the functionality is very good and is coated with 
 
 ## Screenshots
 
-![App Screenshot](   https://imgur.com/undefined )
+![dnd](public/images/dndSec.png)
+![dnd](public/images/edit_Sec.png)
+![dnd](public/images/edit_Task.png)
+![dnd](public/images/secdnd.png)
 
-![App Screenshot](  https://imgur.com/W9q9o8m )
 
 
 ## 🔗 Links
