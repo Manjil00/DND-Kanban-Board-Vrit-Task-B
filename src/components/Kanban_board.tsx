@@ -1,6 +1,6 @@
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { ID, Section, Task } from '../types';
 import Plus from "./icons/Plus";
@@ -23,6 +23,14 @@ function Kanban_board(){
 
     //tasks
     const [tasks, setTasks] = useState<Task[]>([]);
+
+    useEffect(() => {
+        localStorage.setItem('sections', JSON.stringify(section));
+    }, [section]);
+    
+    useEffect(() => {
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }, [tasks]);
 
 
 function addSection(){
