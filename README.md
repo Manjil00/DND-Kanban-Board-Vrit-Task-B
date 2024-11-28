@@ -1,50 +1,60 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Vrit Frontend 
+## DND-Kanban-Board
+### Submitted by: Manjil Maharjan
 
-Currently, two official plugins are available:
+DND Kanban Board is a Drag And Drop -able Kanban Board and is made in React + Vite in Typescript (ts,tsx). The Kanban Board works perfectly and is very functional with drag and drop between section to sections and even tasks in same and tasks in other sections. Moreover, the Board is very editable with all the sections and tasks named and can be renamed and also, can be deleted individually one by one.
+Everything is basic as UI but the functionality is very good and is coated with DND-kit
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Features
+- Use of DND-kit and its styles and transitions.
+- Editable and Deleteable
+- Dynamic addition of Tasks and Sections as per required.
 
-## Expanding the ESLint configuration
+  ## Tech Stack
+**Client:** React, TailwindCSS, Vite, Typescript npm packages, DND-kit
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Screenshots
 
-- Configure the top-level `parserOptions` property like this:
+![App Screenshot](   https://imgur.com/undefined )
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+![App Screenshot](  https://imgur.com/W9q9o8m )
+
+
+## 🔗 Links
+[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://manjilmaharjan-portfolio.netlify.app/)
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/manjil-maharjan/)
+
+
+## Feedback
+
+If you have any feedback, please reach out to me at :
+manzilmaharjan00@gmail.com
+
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone {repo sent}
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Go to the project directory
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+  cd dndKanban
 ```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run dev
+```
+
