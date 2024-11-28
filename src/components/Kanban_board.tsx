@@ -38,6 +38,8 @@ function generateId(){
 function deleteSection(id: ID){
     const filterSections = section.filter((sec) =>sec.id !== id);
     setSection(filterSections);
+    const newTasks=tasks.filter((t)=>t.sectionId  !== id);
+    setTasks(newTasks);
 }
 function updateSection(id:ID,title:string){
     const updatedSection=section.map(sec=>{
@@ -108,11 +110,24 @@ function OnDragOver(event: DragOverEvent){
             const activeIndex= tasks.findIndex((t)=>t.id === activeId);
             const overIndex= tasks.findIndex((t)=>t.id === overId);
 
+            if(!isActiveATask) return;
+
+            tasks[activeIndex].sectionId = tasks[overIndex].sectionId
+
             return arrayMove(tasks, activeIndex,overIndex);
         });
 }
     //droping in other secction
+        const isoverASection=over.data.current?.type === "Section";
 
+        if(isActiveATask && isoverASection){
+            setTasks((tasks)=>{
+                const activeIndex= tasks.findIndex((t)=>t.id === activeId);
+                if(!isActiveATask) return;
+                tasks[activeIndex].sectionId = overId;
+                return arrayMove(tasks, activeIndex,activeIndex);
+            });
+        }
 }
 
 //Task
