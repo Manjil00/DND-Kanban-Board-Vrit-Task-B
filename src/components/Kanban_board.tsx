@@ -92,6 +92,18 @@ function createTask(sectionId:ID){
     setTasks([...tasks, newTask]);
 }
 
+function deleteTask(id:ID){
+    const newTasks=tasks.filter((task)=>task.id !==id);
+    setTasks(newTasks);
+}
+
+function updateTask(id:ID, content: string){
+    const updatedTask=tasks.map((task)=>{
+        if(task.id !== id) return task;
+        return {...task,content};
+    });
+    setTasks(updatedTask);
+}
 
 
 return (
@@ -108,6 +120,8 @@ return (
     deleteSection={deleteSection}
     updateSection={updateSection}
     createTask={createTask}
+    deleteTask={deleteTask}
+    updateTask={updateTask}
     tasks={tasks.filter((task)=>task.sectionId===sec.id)}
     />
     
@@ -127,12 +141,17 @@ return (
 
     </div>
 
-{createPortal(<DragOverlay>
+{createPortal(
+    <DragOverlay>
         {activeColumn && <SectionContainer section={activeColumn}
     deleteSection={deleteSection}
-    updateSection={updateSection} createTask={function (sectionId: ID): void {
-        throw new Error("Function not implemented.");
-    } } tasks={[]}        ></SectionContainer>}
+    updateSection={updateSection}
+    createTask={createTask}
+    deleteTask={deleteTask}
+    updateTask={updateTask}
+    tasks={[]}
+    
+    ></SectionContainer>}
     </DragOverlay>,document.body
 )};
 

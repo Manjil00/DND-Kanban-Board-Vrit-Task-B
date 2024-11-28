@@ -1,21 +1,25 @@
 import { useSortable } from "@dnd-kit/sortable";
-import { Section, ID, Task, } from "../types";
-import DeleteIcon from "./icons/DeleteIcon";
-import {CSS} from "@dnd-kit/utilities";
+import { CSS } from "@dnd-kit/utilities";
 import { useState } from "react";
+import { ID, Section, Task, } from "../types";
+import DeleteIcon from "./icons/DeleteIcon";
 import Plus from "./icons/Plus";
+import TaskCard from "./TaskCard";
 
 interface Props{
     section:Section;
     deleteSection:(id:ID) => void;
     updateSection:(id:ID, title:string) => void;
     createTask: (sectionId:ID)=> void;
+    deleteTask: (id:ID)=>void;
+    updateTask: (id:ID, content:string)=>void;
     tasks:Task[]
+
 }
 
 function SectionContainer(props:Props) {
 
-const {section, deleteSection, updateSection, createTask, tasks} =props;
+const {section, deleteSection, updateSection, createTask, tasks,deleteTask,  updateTask} =props;
 const [edit,setEdit]=useState(false);
 
 
@@ -37,6 +41,7 @@ const {setNodeRef, attributes, listeners, transform, transition,isDragging}
     if(isDragging){
         return<div ref={setNodeRef} style={style} className="bg-slate-500 h-[500px] w-[400px] text-black rounded-xl"></div>
     }
+
 
     return (
     <div ref={setNodeRef}
@@ -66,9 +71,9 @@ const {setNodeRef, attributes, listeners, transform, transition,isDragging}
             ><DeleteIcon/></button>
         </div>
 
-        <div className="content flex flex-grow text-white">
+        <div className="content flex flex-grow flex-col gap-4 p-2 overflow-x-hidden overflow-y-auto text-white">
             {tasks.map((task)=>(
-                <div key={task.id}>{task.content}</div>
+            <TaskCard key={task.id} task={task} deleteTask={deleteTask} updateTask={updateTask}/>
             ))}
         </div>
 
