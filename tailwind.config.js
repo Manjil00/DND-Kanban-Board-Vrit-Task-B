@@ -7,9 +7,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        mainbg:"#F5F5F5",
-      }
-
+        bgcolor: '#161618',
+        bgcolorlite: '#212124',
+    },
+    fontFamily: {
+      LogoFont:'"Sixtyfour Convergence", sans-serif;',
+      },
     },
   },
   plugins: [],

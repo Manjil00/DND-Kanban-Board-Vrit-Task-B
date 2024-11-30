@@ -163,15 +163,15 @@ function updateTask(id:ID, content: string){
 
 
 return (
-    <div className="main overflow-x-auto overflow-y-hidden whitespace-nowrap min-h-screen">
+    <div className="main overflow-x-auto overflow-y-hidden whitespace-nowrap min-h-screen bg-bgcolor">
             <DndContext sensors={sensors}
             onDragStart={OnDragStart}
             onDragEnd={OnDragEnd}
             onDragOver={OnDragOver}>
             <div className=' w-screen h-[100vh] p-2 ' >
-    <h1 className='text-4xl font-serif text-center'>Kanban Board</h1>
+    <h1 className='text-4xl font-LogoFont text-center text-white mt-5'>Kanban Board</h1>
 
-<div className="Section flex justify-evenly items-center gap-3">
+<div className="Section flex justify-evenly items-center gap-3 mt-5">
 
 <div className='flex justify-evenly items-center gap-4 p-3'>
     <SortableContext items={sectionId}>
@@ -191,7 +191,7 @@ return (
 
 
 
-<div className="btn flex justify-evenly items-center bg-red-600 p-2 rounded-xl">
+<div className="btn flex justify-evenly items-center bg-bgcolorlite p-2 rounded-xl text-white">
     <Plus/>
     <button onClick={()=>addSection()}
     className=''> Add Section</button>

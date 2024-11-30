@@ -50,15 +50,13 @@ const {setNodeRef, attributes, listeners, transform, transition,isDragging}
     return (
     <div ref={setNodeRef}
     style={style}
-    className="bg-black h-[600px] w-[400px] text-black rounded-xl flex flex-col justify-between">
-        <div className="top p-5 bg-slate-400 h-[50px] w-full mx-auto rounded-xl rounded-b-none flex justify-between  items-center">
-            <div className="number bg-black rounded-full h-[20px] w-[20px] text-white text-center ">0</div>
-            
+    className="bg-black h-[600px] w-[400px] text-black rounded-xl flex flex-col justify-between gap-5">
+        <div className="top p-5 bg-slate-200 h-[50px] w-full mx-auto rounded-xl rounded-b-none flex justify-between  items-center">
             {/* TITLE WITH CHANGE IINPUT */}
             <div {...attributes} {...listeners} onClick={()=>{setEdit(true)}
         }>
-            <h1> {!edit && section.title}
-                {edit && <input className="bg-black text-white"
+            <h1 className=" text-xl"> {!edit && section.title}
+                {edit && <input className="bg-black text-white w-full p-2"
                 value={section.title || ""}
             onChange={(e)=>updateSection(section.id,e.target.value)}
             autoFocus onBlur={()=>{setEdit(false);
@@ -83,9 +81,9 @@ const {setNodeRef, attributes, listeners, transform, transition,isDragging}
         </SortableContext>
         </div>
 
-        <div className="footer w-full  h-[50px] rounded-xl rounded-t-none bg-slate-400 hover:bg-black hover:text-red-500">
+        <div className="footer w-full  h-[50px] rounded-xl rounded-t-none text-red-500 flex justify-center items-center">
             <button onClick={()=>{createTask(section.id)}}
-            className="flex justify-center items-center gap-3 mx-auto my-auto "><Plus/>Create Task</button>
+            className=" flex justify-center items-center gap-4 font-serif bg-slate-200 p-2 rounded-xl"><Plus/>Create Task</button>
         </div>
 
     </div>

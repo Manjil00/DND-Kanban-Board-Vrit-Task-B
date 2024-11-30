@@ -44,7 +44,7 @@ if(isDragging){
             style={style}
             {...attributes}
             {...listeners}
-            className='main bg-gray-200 h-[100px] min-h-[100px] flex justify-between items-center text-black text-left rounded-xl p-2 hover:border-4 hover:border-green-700'>
+            className='main bg-gray-200 h-[100px]  min-h-[100px] flex justify-between items-center text-black text-left rounded-xl p-2 hover:border-4 hover:border-green-700'>
             <textarea
                 value={task.content}
                 placeholder="Edit Tasks"
