@@ -50,7 +50,7 @@ const {setNodeRef, attributes, listeners, transform, transition,isDragging}
     return (
     <div ref={setNodeRef}
     style={style}
-    className="bg-black h-[600px] w-[400px] text-black rounded-xl flex flex-col justify-between gap-5">
+    className="bg-bgcolor h-[600px] w-[400px] text-black rounded-xl flex flex-col justify-between gap-5">
         <div className="top p-5 bg-slate-200 h-[50px] w-full mx-auto rounded-xl rounded-b-none flex justify-between  items-center">
             {/* TITLE WITH CHANGE IINPUT */}
             <div {...attributes} {...listeners} onClick={()=>{setEdit(true)}
